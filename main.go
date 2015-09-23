@@ -2,14 +2,15 @@ package main
 
 import (
 	"crypto/tls"
-	"fmt"
 	"os"
 
+	"flag"
+	"fmt"
+	"log"
+
+	"github.com/cloudfoundry-incubator/uaago"
 	"github.com/cloudfoundry/noaa"
 	"github.com/cloudfoundry/sonde-go/events"
-	"flag"
-	"log"
-	"github.com/cloudfoundry-incubator/uaago"
 )
 
 func main() {
@@ -18,6 +19,8 @@ func main() {
 	password := flag.String("pass", "example-nozzle", "password for the user")
 	trafficControllerURL := flag.String("tcurl", "wss://doppler.bosh-lite.com:443", "loggregator traffic controller URL and port")
 	uaaURL := flag.String("uaaurl", "https://uaa.bosh-lite.com", "UAA URL")
+
+	flag.Parse()
 
 	uaaClient, err := uaago.NewClient(*uaaURL)
 	if err != nil {
